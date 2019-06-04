@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #FFFFEE;
+    font-size: 24px;
+    overflow: auto;
+    font-family: "sans-serif";
+    color: #666;
+}
+
+#loveHeart {
+    width:670px;
+    height:625px;
+    margin: 0 auto;
+}
+
+#garden {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar, .slogan {
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.avatar-l, .avatar-r {
+    display: inline-block;
+}
+
+.avatar-r {
+    margin-left: -20px;
+}
+
+.avatar-img {
+    border-radius: 60px;
+}
+
+.message {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#elapseClock .digit{
+    font-family: "digit";
+    font-size: 36px;
+}

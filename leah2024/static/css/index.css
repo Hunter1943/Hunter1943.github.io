@@ -31,6 +31,12 @@
     text-align: center;
 }
 
+#hint {
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
 #container {
     width: 880px;
     height: 600px;
@@ -106,4 +112,10 @@ td {
     color: #FFFFFF;
     background-color: #009BDF;
     cursor: pointer;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }

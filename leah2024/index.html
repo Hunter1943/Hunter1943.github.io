@@ -33,6 +33,7 @@
 </head>
 <body>
     <div id="title">不 <span style="transform: rotate(-18deg); display: inline-block;">歪</span> 七 七</div>
+    <div id="hint">点击格子开始游戏</div>
     <div id="container">
         <div id="playground">
             <table id="grid"></table>
@@ -47,7 +48,9 @@
             <p id="next_level" class="next_level_button" onclick="nextLevel()" style="visibility: hidden;">NEXT LEVEL</p>
         </div>
     </div>
+    <canvas id="firework_canvas"></canvas>
     
+    <script src="static/js/firework.js"></script>
     <script src="static/js/score.js"></script>
     <script src="static/js/index.js"></script>
 </body>

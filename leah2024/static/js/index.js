@@ -61,6 +61,7 @@ function nextLevel() {
         }
     } else {
         win = true;
+        document.getElementById('hint').innerText = '祝Leah莉娅生日快乐！❤️';
         document.getElementById('next_level').innerText = 'YOU WIN!';
         var canvas = document.getElementById('firework_canvas');
         canvas.style.width = '100%';

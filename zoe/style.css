@@ -25,6 +25,10 @@ body {
     z-index: 2;
 }
 
+.slogan {
+    margin-top: 10px;
+}
+
 .avatar-l, .avatar-r {
     display: inline-block;
 }

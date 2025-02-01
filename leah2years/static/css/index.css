@@ -1,0 +1,23 @@
+.next_level_button, .win_text{
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #0075C9;
+}
+
+.next_level_button:hover, .next_level_button:focus, .next_level_button:active {
+    padding: 10px 0;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #009BDF;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+p {
+    font-size: 18px;
+}

@@ -1,0 +1,44 @@
+.speech-bubble {
+  position: relative;
+  background: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px;
+  width: 500px;
+}
+
+/* 创建气泡的小尾巴 */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: white;
+  border-bottom: 0;
+  margin-left: -10px;
+  margin-bottom: -10px;
+}
+
+/* 给气泡小尾巴添加黑色边框 */
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: black;
+  border-bottom: 0;
+  margin-left: -12px;
+  margin-bottom: -12px;
+  z-index: -1;
+}
+
+  .speech-bubble h1 {
+    margin: 0;
+  }

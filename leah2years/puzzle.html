@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拼图游戏</title>
+    <style>
+        /* 拼图容器样式 */
+        #puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(6, 110.6666667px);
+            grid-template-rows: repeat(4, 94px);
+            gap: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* 拼图块样式 */
+        .puzzle-piece {
+            width: 106.6666667px;
+            height: 90px;
+            background-image: url('static/img/20230402jianzhang.jpeg');
+            background-size: 640px 360px;
+            border: 2px solid #FFFFFF;
+            cursor: pointer;
+        }
+
+        /* 空白块样式 */
+        .empty {
+            background: none;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 拼图容器 -->
+    <div id="puzzle-container"></div>
+    <!-- 重置按钮 -->
+    <button id="reset-button">重置</button>
+
+    <script>
+        // 拼图块数量
+        const row = 4;
+        const col = 6;
+        // 拼图容器
+        const puzzleContainer = document.getElementById('puzzle-container');
+        // 重置按钮
+        const resetButton = document.getElementById('reset-button');
+        // 拼图块数组
+        let puzzlePieces = [];
+        
+        // 选中块索引
+        let selectIndex = -1;
+
+        // 初始化拼图
+        function initPuzzle() {
+            // 清空拼图容器
+            puzzleContainer.innerHTML = '';
+            // 生成拼图块
+            for (let i = 0; i < row * col; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                // 计算背景位置
+                const x = (i % col) * -106.6666667;
+                const y = Math.floor(i / col) * -90;
+                piece.style.backgroundPosition = `${x}px ${y}px`;
+                piece._index = i;
+                puzzleContainer.appendChild(piece);
+                puzzlePieces.push(piece);
+            }
+            // 打乱拼图
+            shufflePuzzle();
+            // 添加点击事件监听器
+            puzzlePieces.forEach((piece, index) => {
+                piece.addEventListener('click', () => clickPiece(index));
+            });
+        }
+
+        // 打乱拼图
+        function shufflePuzzle() {
+            for (let i = 0; i < 2; i++) {
+                const r1 = Math.floor(Math.random() * puzzlePieces.length);
+                const r2 = Math.floor(Math.random() * puzzlePieces.length);
+                swapPieces(r1, r2);
+            }
+        }
+
+        // 交换两个拼图块的位置
+        function swapPieces(index1, index2) {
+            const tempStyle = puzzlePieces[index1].style.backgroundPosition;
+            puzzlePieces[index1].style.backgroundPosition = puzzlePieces[index2].style.backgroundPosition;
+            puzzlePieces[index2].style.backgroundPosition = tempStyle;
+            const tempIndex = puzzlePieces[index1]._index;
+            puzzlePieces[index1]._index = puzzlePieces[index2]._index;
+            puzzlePieces[index2]._index = tempIndex;
+        }
+
+        // 移动拼图块
+        function clickPiece(index) {
+            if (selectIndex !== -1) {
+                puzzlePieces[selectIndex].style.borderColor = '#FFFFFF';
+                swapPieces(selectIndex, index);
+                selectIndex = -1;
+                checkWin();
+            } else {
+                selectIndex = index;
+                puzzlePieces[index].style.borderColor = '#0099FF';
+            }
+        }
+
+        // 检查拼图是否完成
+        function checkWin() {
+            let isWin = true;
+            for (let i = 0; i < puzzlePieces.length - 1; i++) {
+                if (puzzlePieces[i]._index !== i) {
+                    isWin = false;
+                    break;
+                }
+            }
+            if (isWin) {
+                alert('恭喜你，拼图完成！');
+            }
+        }
+
+        // 重置拼图
+        function resetPuzzle() {
+            initPuzzle();
+        }
+
+        // 初始化拼图
+        initPuzzle();
+        // 绑定重置按钮点击事件
+        resetButton.addEventListener('click', resetPuzzle);
+    </script>
+</body>
+
+</html>

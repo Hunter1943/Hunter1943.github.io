@@ -159,7 +159,7 @@ for (var i = 0; i < polyhedronData.length; i++) {
             
         var textMaterial = new THREE.MeshBasicMaterial({color: 0x656567});
         var text = new THREE.Mesh(
-            new THREE.TextGeometry("CYM & HJW", {size: 0.4, height: 0.001 , font: "helvetiker"}),
+            new THREE.TextGeometry("From HJW", {size: 0.4, height: 0.001 , font: "helvetiker"}),
                 textMaterial
         );
         text.position.set(-5.8, 0.8, 20);

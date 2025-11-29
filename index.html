@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hunter — 简历</title>
+  <meta name="description" content="Hunter — 简历" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --text:#e6eef8; --accent:#7c3aed;
+      --maxw:980px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:linear-gradient(180deg,#071129 0%, #071724 100%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--text);}
+    .container{max-width:var(--maxw);margin:32px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);display:grid;grid-template-columns:280px 1fr;gap:28px}
+    .sidebar{background:rgba(255,255,255,0.02);padding:20px;border-radius:10px}
+    .photo{width:100%;height:220px;border-radius:8px;object-fit:cover;background:linear-gradient(135deg,#112 0%, #233 100%);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+    h1{margin:0;font-size:26px}
+    h2{margin:10px 0 8px;font-size:14px;color:var(--accent);letter-spacing:0.6px}
+    .muted{color:var(--muted);font-size:13px;line-height:1.5;}
+    .contact{margin-top:14px;font-size:14px;line-height:1.6}
+    .pill{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(124,58,237,0.12);color:var(--accent);font-weight:600;margin:6px 6px 0 0;font-size:13px}
+    .main{padding:20px;background:rgba(255,255,255,0.02);border-radius:10px}
+    section{margin-bottom:18px}
+    .section-title{display:flex;align-items:center;justify-content:space-between}
+    .title{font-size:18px;margin:0}
+    .sub{color:var(--muted);font-size:13px}
+    .item{padding:12px 0 0 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .item:last-child{border-bottom:0}
+    .role{font-weight:700}
+    .company{font-weight:600;color:var(--accent);font-size:14px}
+    .duration{float:right;color:var(--muted);font-size:13px}
+    .desc{color:var(--muted);margin-top:8px;font-size:14px;line-height:1.6;letter-spacing:1px;}
+    .skills{display:flex;flex-wrap:wrap;margin-top:8px}
+    .skill{padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02);margin:6px 6px 0 0;font-size:13px}
+    .projects .proj-title{font-weight:700}
+    .links a{color:var(--accent);text-decoration:none}
+    /* responsive */
+    @media (max-width:900px){.container{grid-template-columns:1fr;padding:18px} .sidebar{order:2} .main{order:1}}
+    /* print friendly */
+    @media print{body{background:white;color:black} .container{box-shadow:none;background:white} .pill{background:#eee;color:#333} a::after{content:" (" attr(href) ")"}} 
+  </style>
+</head>
+<body>
+  <!-- 使用说明：将本文件保存为 index.html，替换其中的占位信息（姓名、联系方式、经历等），然后推到 GitHub Pages 仓库（username.github.io）即可。 -->
+  <div class="container">
+    <aside class="sidebar">
+      <div class="photo">
+        <img src="static/img/avatar.jpeg" alt="avatar" class="photo">
+      </div>
+      <h1 id="name">Hunter</h1>
+      <div class="muted">软件工程师 · 搜索 · AI</div>
+
+      <div class="contact">
+        <div><strong>邮箱：</strong><a href="mailto:hunter_hua@foxmail.com">hunter_hua@foxmail.com</a></div>
+        <div><strong>电话：</strong>+86 189 1613 7107</div>
+        <div><strong>位置：</strong>上海, 中国</div>
+      </div>
+
+      <h2 style="margin-top:14px">技能</h2>
+      <div class="skills">
+        <span class="skill">后端</span>
+        <span class="skill">大前端</span>
+        <span class="skill">搜索</span>
+        <span class="skill">算法工程</span>
+        <span class="skill">Prompt Engineering</span>
+      </div>
+
+      <h2 style="margin-top:14px">教育</h2>
+      <div class="muted">浙江大学， 硕士， 2013-2015</div>
+      <div class="muted">南京理工大学， 本科， 2009-2013</div>
+    </aside>
+
+    <main class="main">
+      <section>
+        <div class="section-title">
+          <h3 class="title">职业简介</h3>
+          <div class="sub">大众点评 — 全栈工程师</div>
+        </div>
+        <p class="desc">“工程搭台，算法唱戏。” 我是一个搭台者，在大众点评负责过多个C端产品，作为前后端工程lead，带领工程团队和算法团队一起完成算法-算力 co-design，将模型和策略工程化落地，端到端提升用户体验和业务指标。我擅长快速理解业务，抽象和拆解问题，完成项目推进落地，数据驱动对产品进行优化迭代。</p>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h3 class="title">工作经历</h3>
+        </div>
+
+        <div class="item">
+          <div>
+            <span class="role">AI应用工程负责人</span>
+            <span class="duration">2024.12 — 至今</span>
+          </div>
+          <p class="desc">
+            - 带领 13 人团队负责大众点评AI产品的工程化落地，包括AI搜索/评价总结/点小评等<br>
+            - 设计了AI搜索的前后端工程架构，基于AI搜索的算法能力支撑了大众点评多个AI产品<br>
+            - 设计了配套的效率工具，使产品和算法可以直接完成Prompt调试并查看线上效果<br>
+            - 端到端视角优化了内容安全审核流程、工程链路、模型推理和输出结构，使输出速度和流畅性大幅提升，完读率提升15pp
+          </p>
+        </div>
+
+        <div class="item">
+          <div>
+            <span class="role">星级评价团队架构师、算法工程负责人</span>
+            <span class="duration">2023.11 — 2024.12</span>
+          </div>
+          <p class="desc">
+            - 带领各方向业务工程团队，0→1构建星级、评价、榜单、公信力的算法工程链路<br>
+            - 一个月完成各方向从纯业务工程系统到算法驱动的工程系统升级<br>
+            - 星级准确率提升xx，评价消费量相对大盘归一化净增长yy，榜单模块在大搜点击率提升zz
+            - 曾卧底多个微信群，收集有关信息，成功标记大规模刷单刷评灰产团伙
+          </p>
+        </div>
+
+        <div class="item">
+            <div>
+                <span class="role">搜索算法工程负责人</span>
+                <span class="duration">2022.3 — 2023.11</span>
+            </div>
+            <p class="desc">
+                - 带领 4 人团队，帮助搜索算法团队在有限资源下最大化算法效果，保障算法链路稳定性，提升算法天花板和可能性<br>
+                - 2022年在公司降本导向下，构建智能算力分配系统，算法指标不降前提下，降低排序层20%算力资源<br>
+                - 2023年和算法一起完成LLM产品链路设计，基于FasterTransformer开发定制推理，使LLM模型在线推理性能变得可接受，于6月上线全美团第一个C端AI产品<br>
+                - 帮助1名前端工程师完成算法工程师的角色转换
+            </p>
+        </div>
+
+        <div class="item">
+            <div>
+                <span class="role">搜索全栈工程师、前端架构师、Android端负责人</span>
+                <span class="duration">2015.7 — 2022.3</span>
+            </div>
+            <p class="desc">
+                - 入职即带领 4 人Android团队，负责搜索产品Android端的迭代<br>
+                - 作为架构师，推进前端架构模块化、动态化，完成性能优化<br>
+                - 作为全栈工程师，参与搜索系统全链路构建，包括爬虫/召回/排序/相关性判别/业务逻辑处理
+            </p>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title"><h3 class="title">其他信息</h3></div>
+        <p class="desc"> 
+            - 3项发明专利<br>
+            - ACM/ICPC Regional 银奖<br>
+            - 语言：中文（母语），英语（读写熟练，听说基础）<br>
+            - 兴趣：密室逃脱，写代码
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+body::after {
+    content: "";
+    background: url('../img/1/leah.jpg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+body.step0-1::after {
+    content: "";
+    background: url('../img/1/yixie.jpg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+body.step0-2::after {
+    content: "";
+    background: url('../img/1/fail.jpg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+body.step0-3::after {
+    content: "";
+    background: url('../img/1/wudizhen.jpeg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+body.step0-4::after {
+    content: "";
+    background: url('../img/1/shenyuan.jpg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+body {
+    font-size: 19px;
+    color: #404040;
+    font-family: "Lato", "Helvetica Neue", sans-serif;
+    cursor: default;
+}

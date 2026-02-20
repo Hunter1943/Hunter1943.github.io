@@ -55,8 +55,11 @@ let Step2 = {
         document.getElementById('bubble').style.top = (window.innerHeight * parseFloat(this.data.bubble[this.curIndex][1]) / 100) + 'px';
     },
     restoreLast: function () {
+        document.body.classList.remove('step3');
+        document.body.classList.add('step2');
         this.curIndex = this.data.content.length - 1;
         this.next = true;
+        for (let i = 1; i <= this.curIndex; i++) document.body.classList.add('step2-' + i);
         document.getElementById('title').innerText = this.data.title;
         document.getElementById('content').innerHTML = this.data.content[this.curIndex];
         document.getElementById('bubble').style.left = this.data.bubble[this.curIndex][0];

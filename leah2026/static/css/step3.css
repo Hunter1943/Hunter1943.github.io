@@ -1,0 +1,12 @@
+/* Step3 背景：温暖深色渐变，区别于前几章的图片背景 */
+body.step3::after {
+    content: "";
+    background: linear-gradient(150deg, #12080a 0%, #2a1208 50%, #1a1030 100%);
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}

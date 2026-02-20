@@ -1,5 +1,5 @@
 let curIndex = 0;
-let steps = [ Step0, Step1, Step2 ];
+let steps = [ Step0, Step1, Step2, Step3 ];
 
 function nextStep() {
     if (steps[curIndex].next) {

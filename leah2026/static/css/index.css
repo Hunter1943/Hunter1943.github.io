@@ -1,31 +1,41 @@
 .nav_buttons {
     display: flex;
+    gap: 8px;
+    margin-top: 22px;
 }
 
 .nav_buttons > p {
     flex: 1;
 }
 
-.next_level_button, .win_text{
+.next_level_button {
     margin: 0;
-    padding: 10px 0;
+    padding: 9px 0;
     text-align: center;
-    color: #FFFFFF;
-    background-color: #0075C9;
+    color: rgba(255, 210, 150, 0.9);
+    background: rgba(255, 140, 80, 0.10);
+    border: 1px solid rgba(255, 160, 90, 0.30);
+    border-radius: 3px;
+    font-family: 'Georgia', serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+    user-select: none;
 }
 
-.next_level_button:hover, .next_level_button:focus, .next_level_button:active {
-    padding: 10px 0;
-    text-align: center;
-    color: #FFFFFF;
-    background-color: #009BDF;
-    cursor: pointer;
+.next_level_button:hover {
+    background: rgba(255, 140, 80, 0.24);
+    border-color: rgba(255, 160, 90, 0.62);
+    color: rgba(255, 225, 165, 1);
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 28px;
 }
 
 p {
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1.85;
 }

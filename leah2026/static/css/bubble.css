@@ -1,44 +1,44 @@
 .speech-bubble {
-  position: relative;
-  background: white;
-  border: 2px solid black;
+  position: fixed;
+  background: rgba(12, 8, 4, 0.80);
+  border: 1px solid rgba(255, 160, 90, 0.28);
   border-radius: 10px;
-  padding: 15px;
-  margin: 20px;
-  width: 500px;
+  padding: 28px 32px 20px;
+  width: 440px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 48px rgba(0, 0, 0, 0.60), 0 0 0 1px rgba(255, 160, 90, 0.07);
+  transition: left 0.55s cubic-bezier(.4,0,.2,1), top 0.55s cubic-bezier(.4,0,.2,1);
+  font-family: 'Georgia', 'Songti SC', serif;
 }
 
-/* 创建气泡的小尾巴 */
-.speech-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top-color: white;
-  border-bottom: 0;
-  margin-left: -10px;
-  margin-bottom: -10px;
+.speech-bubble h1 {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 5px;
+  color: rgba(255, 190, 110, 0.65);
+  text-transform: uppercase;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(255, 160, 90, 0.15);
+  padding-bottom: 12px;
 }
 
-/* 给气泡小尾巴添加黑色边框 */
-.speech-bubble::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border: 12px solid transparent;
-  border-top-color: black;
-  border-bottom: 0;
-  margin-left: -12px;
-  margin-bottom: -12px;
-  z-index: -1;
+.speech-bubble p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 2;
+  color: rgba(255, 225, 175, 0.92);
+  letter-spacing: 0.4px;
 }
 
-  .speech-bubble h1 {
-    margin: 0;
-  }
+.speech-bubble a {
+  color: rgba(255, 185, 105, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 160, 80, 0.32);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.speech-bubble a:hover {
+  color: rgba(255, 215, 145, 1);
+  border-bottom-color: rgba(255, 200, 100, 0.68);
+}

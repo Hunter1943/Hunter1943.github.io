@@ -74,8 +74,10 @@ body.step0-4::after {
 }
 
 body {
-    font-size: 19px;
-    color: #404040;
-    font-family: "Lato", "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    color: rgba(255, 225, 175, 0.9);
+    font-family: 'Noto Serif SC', 'Georgia', 'Songti SC', serif;
     cursor: default;
+    background: #0a0604;
+    overflow: hidden;
 }

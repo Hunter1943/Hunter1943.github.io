@@ -1,0 +1,90 @@
+/* Step2 默认背景（index 0） */
+body.step2::after {
+    content: "";
+    background: url('../img/3/fengmian1.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 1 */
+body.step2.step2-1::after {
+    content: "";
+    background: url('../img/3/fengmian2.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 2 */
+body.step2.step2-2::after {
+    content: "";
+    background: url('../img/3/fengmian3.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 3 */
+body.step2.step2-3::after {
+    content: "";
+    background: url('../img/3/fengmian4.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 4 */
+body.step2.step2-4::after {
+    content: "";
+    background: url('../img/3/fengmian5.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 5 */
+body.step2.step2-5::after {
+    content: "";
+    background: url('../img/3/fengmian6.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* index 6~8 */
+body.step2.step2-6::after {
+    content: "";
+    background: url('../img/3/fengmian7.jpg') no-repeat center center / 100% 100% fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}

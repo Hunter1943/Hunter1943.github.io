@@ -10,7 +10,7 @@ let Step1 = {
             '没想到仅仅7天，白天还说要修养一段时间，晚上就开始打深渊了，于是<a href="https://www.bilibili.com/video/BV1Gm4y1m7M6/?share_source=copy_web&vd_source=d34302a66cb85ac10f21415e816b9dc3&t=999">提督如约而至</a>。',
             '很巧，上提那天是我生日。现实的事情压着，过得格外难熬。就是这样一个夜晚，蹲到了莉娅打深渊。',
             '屏幕那边的声音有些虚弱却那么认真，好像那点灰暗忽然就散了一些，当时就做了一个决定。后来想，遇到莉娅，大概是那年最好的生日礼物。',
-            '10天后，等到了下一笔绩效，果断<a href="https://www.bilibili.com/video/BV1xh411E7nL/?share_source=copy_web&vd_source=d34302a66cb85ac10f21415e816b9dc3&t=1179">上了总督</a>。'
+            '10天后，等到了下一笔绩效，果断<a href="https://www.bilibili.com/video/BV1xh411E7nL/?share_source=copy_web&vd_source=d34302a66cb85ac10f21415e816b9dc3&t=1179">上了总督</a>。右下是莉娅收到总督后的表情↘'
         ],
         img: [
             'static/img/fengmian.jpg',

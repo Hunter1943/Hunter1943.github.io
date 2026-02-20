@@ -53,7 +53,7 @@ body.step2.step2-3::after {
 /* index 4 */
 body.step2.step2-4::after {
     content: "";
-    background: url('../img/3/fengmian5.jpg') no-repeat center center / 100% 100% fixed;
+    background: url('../img/3/fengmian7.jpg') no-repeat center center / 100% 100% fixed;
     opacity: 0.8;
     top: 0;
     left: 0;
@@ -66,7 +66,7 @@ body.step2.step2-4::after {
 /* index 5 */
 body.step2.step2-5::after {
     content: "";
-    background: url('../img/3/fengmian6.jpg') no-repeat center center / 100% 100% fixed;
+    background: url('../img/3/fengmian7.jpg') no-repeat center center / 100% 100% fixed;
     opacity: 0.8;
     top: 0;
     left: 0;

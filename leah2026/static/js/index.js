@@ -9,9 +9,26 @@ function nextStep() {
         steps[curIndex].nextStep();
         if (curIndex === steps.length - 1 && steps[curIndex].next) {
             document.getElementById('next').style.display = 'none';
-            return;
         }
     }
+    updateNavButtons();
+}
+
+function prevStep() {
+    if (steps[curIndex].curIndex > 0) {
+        steps[curIndex].prevStep();
+    } else if (curIndex > 0) {
+        curIndex--;
+        steps[curIndex].restoreLast();
+    }
+    updateNavButtons();
+}
+
+function updateNavButtons() {
+    document.getElementById('prev').style.display =
+        (curIndex === 0 && steps[curIndex].curIndex === 0) ? 'none' : '';
+    document.getElementById('next').style.display =
+        (curIndex === steps.length - 1 && steps[curIndex].next) ? 'none' : '';
 }
 
 steps[curIndex].init();

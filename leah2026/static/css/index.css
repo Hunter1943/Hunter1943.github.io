@@ -1,3 +1,11 @@
+.nav_buttons {
+    display: flex;
+}
+
+.nav_buttons > p {
+    flex: 1;
+}
+
 .next_level_button, .win_text{
     margin: 0;
     padding: 10px 0;

@@ -1,0 +1,63 @@
+/* Step1 默认背景（index 0~2: fengmian） */
+body.step1::after {
+    content: "";
+    background: url('../img/fengmian.jpg');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+/* index 3~4: first.png */
+body.step1.step1-3::after {
+    content: "";
+    background: url('../img/2/first.png');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+/* index 5~7: second.png */
+body.step1.step1-5::after {
+    content: "";
+    background: url('../img/2/second.png');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+/* index 8: third.png */
+body.step1.step1-8::after {
+    content: "";
+    background: url('../img/2/third.png');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}

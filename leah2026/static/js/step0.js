@@ -9,11 +9,11 @@ let Step0 = {
             '以及每期的深渊教学（这期让我大涨姿势，当时只有妮绽队，打沙虫8分钟缩短到2分钟）'
         ],
         img: [
-            'static/img/fengmian.jpg',
-            'static/img/wudizhen.jpg',
-            'static/img/yixie.jpg',
-            'static/img/fail.jpg',
-            'static/img/shenyuan.jpg',
+            'static/img/1/leah.jpg',
+            'static/img/1/wudizhen.jpg',
+            'static/img/1/yixie.jpg',
+            'static/img/1/fail.jpg',
+            'static/img/1/shenyuan.jpg',
         ],
         bubble: [
             ['45%', '0%'],
@@ -52,8 +52,12 @@ let Step0 = {
         document.getElementById('bubble').style.top = (window.innerHeight * parseFloat(this.data.bubble[this.curIndex][1]) / 100) + 'px';
     },
     restoreLast: function () {
+        // 清除 step1 遗留的类，恢复 step0 背景
+        document.body.classList.remove('step1');
+        for (let i = 1; i <= 8; i++) document.body.classList.remove('step1-' + i);
         this.curIndex = this.data.content.length - 1;
         this.next = true;
+        for (let i = 1; i <= this.curIndex; i++) document.body.classList.add('step0-' + i);
         document.getElementById('title').innerText = this.data.title;
         document.getElementById('content').innerHTML = this.data.content[this.curIndex];
         document.getElementById('bubble').style.left = this.data.bubble[this.curIndex][0];

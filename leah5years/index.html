@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0809">
+  <title>Leah · 五周年</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0809;
+      --paper: #f8e9df;
+      --muted: rgba(248, 233, 223, .62);
+      --line: rgba(255, 225, 210, .2);
+      --accent: #ff9b7d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(137, 54, 45, .2), transparent 34rem),
+        radial-gradient(circle at 86% 80%, rgba(74, 38, 48, .18), transparent 38rem),
+        var(--bg);
+      color: var(--paper);
+      font-family: Georgia, "Songti SC", "STSong", serif;
+    }
+    button, a { font: inherit; }
+    button { color: inherit; }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      opacity: .055;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: minmax(250px, .75fr) minmax(300px, 1fr);
+      align-items: center;
+      gap: clamp(36px, 8vw, 130px);
+      width: min(1120px, calc(100% - 48px));
+      margin: auto;
+      transition: opacity 1.1s ease, visibility 1.1s;
+    }
+    body.started .intro { opacity: 0; visibility: hidden; pointer-events: none; }
+    .portrait-wrap {
+      position: relative;
+      justify-self: end;
+      width: min(330px, 32vw);
+      aspect-ratio: 2 / 3;
+    }
+    .portrait-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border: 1px solid var(--line);
+      border-radius: 999px 999px 24px 24px;
+      opacity: .65;
+    }
+    .portrait {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 999px 999px 18px 18px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+    }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font: 600 11px/1.2 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+    }
+    .intro h1 {
+      margin: 0;
+      font-weight: 400;
+      font-size: clamp(42px, 6.2vw, 88px);
+      line-height: .98;
+      letter-spacing: -.04em;
+    }
+    .intro h1 span {
+      display: block;
+      margin-top: 18px;
+      font-size: .36em;
+      letter-spacing: .2em;
+      color: var(--muted);
+    }
+    .intro-copy {
+      max-width: 480px;
+      margin: 30px 0;
+      color: var(--muted);
+      font-size: clamp(14px, 1.5vw, 17px);
+      line-height: 2;
+      letter-spacing: .08em;
+    }
+    .enter {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      border: 1px solid rgba(255, 188, 163, .45);
+      border-radius: 999px;
+      background: rgba(255, 155, 125, .08);
+      padding: 13px 22px 13px 25px;
+      cursor: pointer;
+      letter-spacing: .18em;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+    .enter:hover { background: rgba(255, 155, 125, .18); border-color: var(--accent); transform: translateY(-2px); }
+    .enter span { color: var(--accent); font-size: 18px; }
+
+    .experience {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s ease .55s, visibility 1.2s;
+    }
+    body.started .experience { opacity: 1; visibility: visible; }
+    .topline {
+      position: fixed;
+      top: max(20px, env(safe-area-inset-top));
+      left: 50%;
+      z-index: 15;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font: 600 10px/1 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      letter-spacing: .36em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .viewport {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 100vw;
+      height: 100vh;
+      touch-action: none;
+      cursor: grab;
+      user-select: none;
+    }
+    .viewport.dragging { cursor: grabbing; }
+    .artboard {
+      position: relative;
+      height: min(78vh, 880px);
+      aspect-ratio: 2 / 3;
+      transform: translate3d(0, 18px, 0) scale(.94);
+      opacity: 0;
+      transition: opacity 1.5s ease .8s, transform 2s cubic-bezier(.2,.75,.2,1) .7s;
+      will-change: transform;
+    }
+    body.started .artboard { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    .stage {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+    .art-image {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 34px 100px rgba(0,0,0,.52);
+      -webkit-user-drag: none;
+    }
+    .target-image { opacity: 1; transition: opacity 2.8s ease 1.1s; }
+    .mosaic-image { opacity: 0; transition: opacity 3.2s ease 1.05s; }
+    body.revealed .target-image { opacity: 0; }
+    body.revealed .mosaic-image { opacity: 1; }
+    .artboard::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: 4;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .caption {
+      position: fixed;
+      left: 50%;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      z-index: 12;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100vw - 150px);
+      text-align: center;
+      pointer-events: none;
+    }
+    .caption strong { display: block; font-size: 15px; font-weight: 400; letter-spacing: .22em; }
+    .caption span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font: 11px/1.4 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      letter-spacing: .1em;
+    }
+    .controls {
+      position: fixed;
+      right: 22px;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      z-index: 18;
+      display: flex;
+      gap: 8px;
+    }
+    .control {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(16, 11, 12, .72);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: border-color .2s, background .2s;
+    }
+    .control:hover { border-color: var(--accent); background: rgba(50, 28, 27, .85); }
+
+    .loading {
+      position: fixed;
+      left: 22px;
+      bottom: max(28px, env(safe-area-inset-bottom));
+      z-index: 12;
+      color: var(--muted);
+      font: 10px/1.4 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      letter-spacing: .12em;
+      transition: opacity .5s;
+    }
+    .loading.done { opacity: 0; }
+
+    .memory-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(5, 3, 4, .78);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .28s ease, visibility .28s;
+    }
+    .memory-overlay.show { opacity: 1; visibility: visible; }
+    .memory-card {
+      position: relative;
+      width: min(760px, calc(100vw - 32px));
+      padding: 14px 14px 19px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(20, 14, 16, .92);
+      box-shadow: 0 20px 60px rgba(0,0,0,.42);
+      transform: translateY(12px) scale(.985);
+      transition: transform .28s ease;
+    }
+    .memory-overlay.show .memory-card { transform: translateY(0) scale(1); }
+    .memory-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin-bottom: 17px;
+      border-radius: 10px;
+      background-color: #080607;
+      background-repeat: no-repeat;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .memory-close {
+      position: absolute;
+      top: -13px;
+      right: -13px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #211719;
+      cursor: pointer;
+      font: 20px/1 -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .memory-meta { padding: 0 5px; }
+    .memory-kicker { color: var(--accent); font: 10px/1.3 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; letter-spacing: .16em; }
+    .memory-title { margin: 8px 0 10px; font-size: 14px; line-height: 1.6; }
+    .memory-link { color: var(--muted); font: 12px/1.4 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; text-decoration: none; }
+    .memory-link:hover { color: var(--paper); }
+
+    @media (max-width: 720px) {
+      .intro {
+        grid-template-columns: 1fr;
+        align-content: center;
+        gap: 28px;
+        width: min(420px, calc(100% - 44px));
+        text-align: center;
+      }
+      .portrait-wrap { justify-self: center; width: min(190px, 48vw); }
+      .intro-copy { margin: 22px auto; font-size: 13px; }
+      .artboard { height: min(70vh, 690px); }
+      .caption { bottom: max(18px, env(safe-area-inset-bottom)); max-width: calc(100vw - 120px); }
+      .caption strong { font-size: 12px; }
+      .caption span { display: none; }
+      .controls { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); flex-direction: column; }
+      .loading { left: 12px; bottom: max(16px, env(safe-area-inset-bottom)); }
+      .memory-overlay { padding: 16px; }
+      .memory-card { width: 100%; padding: 10px 10px 16px; }
+      .memory-close { top: -10px; right: -8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <main class="intro" aria-labelledby="gift-title">
+    <div class="portrait-wrap">
+      <img class="portrait" src="raw.webp" alt="Leah 莉娅">
+    </div>
+    <div>
+      <p class="eyebrow">Five years · for Leah</p>
+      <h1 id="gift-title">莉娅<span>五 周 年 · 快 乐</span></h1>
+      <p class="intro-copy">把直播里那些笑过、闹过、认真过的瞬间，拼成今天的你。远看是一张照片，走近一点，是一路走来的我们。</p>
+      <button id="enter" class="enter" type="button">开启这份礼物 <span>→</span></button>
+    </div>
+  </main>
+
+  <section class="experience" aria-label="直播画面照片马赛克">
+    <div class="topline">Leah · 5th anniversary</div>
+    <div id="viewport" class="viewport">
+      <div class="artboard">
+        <div id="stage" class="stage">
+          <img class="art-image target-image" src="raw.webp" alt="莉娅的照片">
+          <img id="mosaic" class="art-image mosaic-image" src="static/img/mosaic-preview.webp" alt="由九千六百个直播画面组成的莉娅照片">
+        </div>
+      </div>
+    </div>
+
+    <div class="caption">
+      <strong>九千六百个瞬间，拼成今天的你</strong>
+      <span>滚轮或双指缩放 · 拖动画面 · 点击任意一格查看回忆</span>
+    </div>
+    <div id="loading" class="loading">正在准备高清回忆…</div>
+    <div class="controls" aria-label="缩放控制">
+      <button id="zoom-in" class="control" type="button" aria-label="放大">＋</button>
+      <button id="zoom-out" class="control" type="button" aria-label="缩小">－</button>
+      <button id="reset" class="control" type="button" aria-label="重置">↺</button>
+    </div>
+
+    <div id="memory-overlay" class="memory-overlay" aria-hidden="true">
+      <aside class="memory-card" role="dialog" aria-modal="true" aria-labelledby="memory-title">
+        <button id="memory-close" class="memory-close" type="button" aria-label="关闭高清截图">×</button>
+        <div id="memory-frame" class="memory-frame" role="img" aria-label="这一格对应的直播高清截图"></div>
+        <div class="memory-meta" aria-live="polite">
+          <div id="memory-kicker" class="memory-kicker"></div>
+          <div id="memory-title" class="memory-title"></div>
+          <a id="memory-link" class="memory-link" target="_blank" rel="noopener">回到这个直播瞬间 ↗</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    'use strict';
+
+    const elements = {
+      enter: document.getElementById('enter'),
+      viewport: document.getElementById('viewport'),
+      stage: document.getElementById('stage'),
+      mosaic: document.getElementById('mosaic'),
+      loading: document.getElementById('loading'),
+      memoryOverlay: document.getElementById('memory-overlay'),
+      memoryFrame: document.getElementById('memory-frame'),
+      memoryClose: document.getElementById('memory-close'),
+      memoryKicker: document.getElementById('memory-kicker'),
+      memoryTitle: document.getElementById('memory-title'),
+      memoryLink: document.getElementById('memory-link'),
+      zoomIn: document.getElementById('zoom-in'),
+      zoomOut: document.getElementById('zoom-out'),
+      reset: document.getElementById('reset'),
+    };
+
+    const view = { scale: 1, x: 0, y: 0, dragging: false, moved: false, startX: 0, startY: 0 };
+    let layoutData = null;
+    let videos = new Map();
+    let pinchDistance = 0;
+    let pinchScale = 1;
+
+    function clampView() {
+      if (view.scale <= 1.001) {
+        view.scale = 1;
+        view.x = 0;
+        view.y = 0;
+        return;
+      }
+      const board = elements.stage.parentElement.getBoundingClientRect();
+      const maxX = board.width * (view.scale - 1) / 2 + 80;
+      const maxY = board.height * (view.scale - 1) / 2 + 80;
+      view.x = Math.max(-maxX, Math.min(maxX, view.x));
+      view.y = Math.max(-maxY, Math.min(maxY, view.y));
+    }
+
+    function renderView(animate = false) {
+      clampView();
+      elements.stage.style.transition = animate ? 'transform .35s cubic-bezier(.2,.75,.2,1)' : 'none';
+      elements.stage.style.transform = `translate3d(${view.x}px, ${view.y}px, 0) scale(${view.scale})`;
+    }
+
+    function zoomBy(factor, animate = true) {
+      view.scale = Math.max(1, Math.min(12, view.scale * factor));
+      renderView(animate);
+    }
+
+    function resetView() {
+      view.scale = 1;
+      view.x = 0;
+      view.y = 0;
+      renderView(true);
+      closeMemory();
+    }
+
+    function formatTime(totalSeconds) {
+      const seconds = Math.max(0, Math.round(totalSeconds));
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const rest = seconds % 60;
+      return `${hours ? `${hours}:` : ''}${String(minutes).padStart(hours ? 2 : 1, '0')}:${String(rest).padStart(2, '0')}`;
+    }
+
+    function showMemory(clientX, clientY) {
+      if (!layoutData || view.moved) return;
+      const rect = elements.mosaic.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width;
+      const y = (clientY - rect.top) / rect.height;
+      if (x < 0 || x >= 1 || y < 0 || y >= 1) return;
+      const column = Math.min(layoutData.columns - 1, Math.floor(x * layoutData.columns));
+      const row = Math.min(layoutData.rows - 1, Math.floor(y * layoutData.rows));
+      const memory = layoutData.layout[row * layoutData.columns + column];
+      const video = videos.get(memory.bvid);
+      if (!video) return;
+      const date = new Date(video.publishedAt).toLocaleDateString('zh-CN', {
+        timeZone: 'Asia/Shanghai', year: 'numeric', month: 'long', day: 'numeric'
+      });
+      elements.memoryKicker.textContent = `${date} · ${formatTime(memory.time)}`;
+      elements.memoryTitle.textContent = video.title;
+      elements.memoryLink.href = `${video.url}?t=${memory.time}`;
+      if (memory.sheet) {
+        const x = memory.sheetColumns > 1 ? memory.sheetColumn / (memory.sheetColumns - 1) * 100 : 0;
+        const y = memory.sheetRows > 1 ? memory.sheetRow / (memory.sheetRows - 1) * 100 : 0;
+        elements.memoryFrame.style.backgroundImage = `url("static/${memory.sheet}")`;
+        elements.memoryFrame.style.backgroundSize = `${memory.sheetColumns * 100}% ${memory.sheetRows * 100}%`;
+        elements.memoryFrame.style.backgroundPosition = `${x}% ${y}%`;
+      } else {
+        elements.memoryFrame.style.backgroundImage = 'none';
+      }
+      elements.memoryOverlay.classList.add('show');
+      elements.memoryOverlay.setAttribute('aria-hidden', 'false');
+      elements.memoryClose.focus();
+    }
+
+    function closeMemory() {
+      elements.memoryOverlay.classList.remove('show');
+      elements.memoryOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    async function loadMemoryMap() {
+      try {
+        if (!window.LEAH_MEMORY_MAP) {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'static/data/memory-map.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        }
+        layoutData = window.LEAH_MEMORY_MAP.layout;
+        videos = new Map(window.LEAH_MEMORY_MAP.videos.map((video) => [video.bvid, video]));
+      } catch (error) {
+        console.warn('Memory map unavailable', error);
+      }
+    }
+
+    function loadHighResolution() {
+      const image = new Image();
+      image.onload = () => {
+        elements.mosaic.src = image.src;
+        elements.loading.textContent = '高清回忆已就绪';
+        elements.loading.classList.add('done');
+      };
+      image.onerror = () => { elements.loading.textContent = '当前使用流畅画质'; };
+      image.src = 'static/img/mosaic.webp';
+    }
+
+    elements.enter.addEventListener('click', () => {
+      document.body.classList.add('started');
+      setTimeout(() => document.body.classList.add('revealed'), 1050);
+      loadHighResolution();
+      loadMemoryMap();
+    });
+
+    elements.viewport.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      zoomBy(event.deltaY < 0 ? 1.18 : 0.84, false);
+    }, { passive: false });
+
+    elements.viewport.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') return;
+      view.dragging = true;
+      view.moved = false;
+      view.startX = event.clientX - view.x;
+      view.startY = event.clientY - view.y;
+      elements.viewport.classList.add('dragging');
+      elements.viewport.setPointerCapture(event.pointerId);
+    });
+    elements.viewport.addEventListener('pointermove', (event) => {
+      if (!view.dragging || event.pointerType === 'touch') return;
+      const nextX = event.clientX - view.startX;
+      const nextY = event.clientY - view.startY;
+      if (Math.abs(nextX - view.x) + Math.abs(nextY - view.y) > 3) view.moved = true;
+      view.x = nextX;
+      view.y = nextY;
+      renderView();
+    });
+    elements.viewport.addEventListener('pointerup', (event) => {
+      if (event.pointerType === 'touch') return;
+      view.dragging = false;
+      elements.viewport.classList.remove('dragging');
+      showMemory(event.clientX, event.clientY);
+    });
+
+    elements.viewport.addEventListener('touchstart', (event) => {
+      view.moved = false;
+      if (event.touches.length === 1) {
+        view.startX = event.touches[0].clientX - view.x;
+        view.startY = event.touches[0].clientY - view.y;
+      } else if (event.touches.length === 2) {
+        pinchDistance = Math.hypot(
+          event.touches[0].clientX - event.touches[1].clientX,
+          event.touches[0].clientY - event.touches[1].clientY
+        );
+        pinchScale = view.scale;
+      }
+    }, { passive: false });
+    elements.viewport.addEventListener('touchmove', (event) => {
+      event.preventDefault();
+      view.moved = true;
+      if (event.touches.length === 1) {
+        view.x = event.touches[0].clientX - view.startX;
+        view.y = event.touches[0].clientY - view.startY;
+      } else if (event.touches.length === 2 && pinchDistance) {
+        const distance = Math.hypot(
+          event.touches[0].clientX - event.touches[1].clientX,
+          event.touches[0].clientY - event.touches[1].clientY
+        );
+        view.scale = Math.max(1, Math.min(12, pinchScale * distance / pinchDistance));
+      }
+      renderView();
+    }, { passive: false });
+    elements.viewport.addEventListener('touchend', (event) => {
+      if (event.touches.length === 0 && !view.moved && event.changedTouches[0]) {
+        showMemory(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+      }
+    });
+
+    elements.viewport.addEventListener('dblclick', () => zoomBy(view.scale > 2 ? .45 : 2.2));
+    elements.zoomIn.addEventListener('click', () => zoomBy(1.45));
+    elements.zoomOut.addEventListener('click', () => zoomBy(.7));
+    elements.reset.addEventListener('click', resetView);
+    elements.memoryClose.addEventListener('click', closeMemory);
+    elements.memoryOverlay.addEventListener('click', (event) => {
+      if (event.target === elements.memoryOverlay) closeMemory();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMemory();
+    });
+  </script>
+</body>
+</html>

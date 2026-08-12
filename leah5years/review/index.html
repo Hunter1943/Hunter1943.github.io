@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Leah 五周年 · 本地选片器</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0e0b0c;
+      --panel: rgba(31, 24, 25, 0.92);
+      --panel-soft: rgba(255, 245, 238, 0.055);
+      --line: rgba(255, 226, 208, 0.14);
+      --text: #f8ede7;
+      --muted: #bca9a1;
+      --accent: #ff997b;
+      --accent-2: #ffd0b8;
+      --green: #92d7ad;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(170, 72, 59, 0.18), transparent 30rem),
+        linear-gradient(180deg, #120d0f, var(--bg));
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .shell { width: min(1500px, 100%); margin: 0 auto; padding: 24px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 128px minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+    .hero > div, .video-head > div { min-width: 0; }
+    .target {
+      width: 128px;
+      aspect-ratio: 2 / 3;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    h1 { margin: 0 0 8px; font: 500 clamp(25px, 4vw, 44px)/1.15 Georgia, serif; }
+    .lead { margin: 0; color: var(--muted); line-height: 1.7; }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      margin: 0 -12px 22px;
+      background: rgba(14, 11, 12, .9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      backdrop-filter: blur(18px);
+    }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,.045);
+      color: var(--text);
+      padding: 10px 12px;
+      outline: none;
+    }
+    .search:focus { border-color: var(--accent); }
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,.055);
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+    .button:hover { border-color: rgba(255, 153, 123, .55); }
+    .button.primary { background: var(--accent); color: #271311; border-color: transparent; font-weight: 700; }
+    .counter { color: var(--accent-2); min-width: 90px; text-align: center; }
+
+    .notice {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-soft);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .video {
+      margin: 0 0 28px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+    .video-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .video h2 { margin: 0 0 7px; font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
+    .meta { color: var(--muted); font-size: 13px; }
+    .external { color: var(--accent-2); text-decoration: none; white-space: nowrap; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      padding: 12px;
+    }
+    .frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #221a1c;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+    .frame:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.3); }
+    .frame.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(255,153,123,.25), 0 10px 25px rgba(0,0,0,.3);
+    }
+    .frame-time, .badge, .select-button {
+      position: absolute;
+      z-index: 2;
+      background: rgba(8, 5, 6, .78);
+      backdrop-filter: blur(6px);
+    }
+    .frame-time { left: 7px; bottom: 7px; padding: 4px 6px; border-radius: 5px; font-size: 12px; }
+    .badge { top: 7px; left: 7px; color: #ffe6a7; padding: 4px 6px; border-radius: 5px; font-size: 11px; }
+    .select-button {
+      top: 7px;
+      right: 7px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .frame.selected .select-button { background: var(--accent); color: #2b1510; }
+
+    dialog {
+      width: min(1180px, calc(100% - 24px));
+      max-height: calc(100vh - 24px);
+      padding: 0;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #171113;
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+    }
+    dialog::backdrop { background: rgba(4,2,3,.82); backdrop-filter: blur(8px); }
+    .dialog-head {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      background: rgba(23,17,19,.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .dialog-head h3 { margin: 0; font-size: 16px; }
+    .nearby-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px;
+      padding: 14px;
+    }
+    .close { font-size: 18px; min-width: 42px; }
+    .empty { padding: 50px 20px; text-align: center; color: var(--muted); }
+
+    @media (max-width: 620px) {
+      .shell { padding: 16px 12px; }
+      .hero { grid-template-columns: 84px 1fr; gap: 14px; }
+      .target { width: 84px; border-radius: 12px; }
+      .lead { font-size: 13px; }
+      .grid, .nearby-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px; }
+      .video-head { padding: 14px; }
+      .video-head .external { display: none; }
+      .frame-time { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <img class="target" src="../raw.webp" alt="马赛克目标照片">
+      <div>
+        <h1>直播回忆选片器</h1>
+        <p class="lead">先看代表画面，点画面进入前后片段；右上角的心形用于收藏。选择会自动保存在当前浏览器。</p>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="选片工具栏">
+      <input id="search" class="search" type="search" placeholder="按标题或日期筛选回放">
+      <span id="counter" class="counter">已选 0 张</span>
+      <button id="show-selected" class="button" type="button">只看已选</button>
+      <button id="export" class="button primary" type="button">导出 selections.json</button>
+    </section>
+
+    <div id="status" class="notice">正在读取本地预览数据……</div>
+    <section id="videos" aria-live="polite"></section>
+  </main>
+
+  <dialog id="nearby-dialog">
+    <div class="dialog-head">
+      <div>
+        <h3 id="dialog-title">查看附近画面</h3>
+        <div id="dialog-meta" class="meta"></div>
+      </div>
+      <button id="close-dialog" class="button close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div id="nearby-grid" class="nearby-grid"></div>
+  </dialog>
+
+  <script>
+    'use strict';
+
+    const STORAGE_KEY = 'leah5years-review-selections-v1';
+    const state = {
+      data: null,
+      selected: new Map(),
+      query: '',
+      onlySelected: false,
+    };
+
+    const elements = {
+      status: document.getElementById('status'),
+      videos: document.getElementById('videos'),
+      search: document.getElementById('search'),
+      counter: document.getElementById('counter'),
+      showSelected: document.getElementById('show-selected'),
+      export: document.getElementById('export'),
+      dialog: document.getElementById('nearby-dialog'),
+      dialogTitle: document.getElementById('dialog-title'),
+      dialogMeta: document.getElementById('dialog-meta'),
+      nearbyGrid: document.getElementById('nearby-grid'),
+      closeDialog: document.getElementById('close-dialog'),
+    };
+
+    function formatTime(totalSeconds) {
+      const seconds = Math.max(0, Math.round(totalSeconds));
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const rest = seconds % 60;
+      return hours > 0
+        ? `${hours}:${String(minutes).padStart(2, '0')}:${String(rest).padStart(2, '0')}`
+        : `${minutes}:${String(rest).padStart(2, '0')}`;
+    }
+
+    function selectionKey(bvid, frameIndex) {
+      return `${bvid}:${frameIndex}`;
+    }
+
+    function frameInfo(video, frameIndex) {
+      const capacity = video.spriteGrid.columns * video.spriteGrid.rows;
+      const spriteIndex = Math.floor(frameIndex / capacity);
+      const cellIndex = frameIndex % capacity;
+      return {
+        frameIndex,
+        time: video.frameTimes[frameIndex],
+        spriteIndex,
+        column: cellIndex % video.spriteGrid.columns,
+        row: Math.floor(cellIndex / video.spriteGrid.columns),
+        sprite: video.sprites[spriteIndex],
+      };
+    }
+
+    function spriteStyle(video, info) {
+      const columns = video.spriteGrid.columns;
+      const rows = video.spriteGrid.rows;
+      const x = columns <= 1 ? 0 : info.column * 100 / (columns - 1);
+      const y = rows <= 1 ? 0 : info.row * 100 / (rows - 1);
+      return [
+        `background-image:url(${JSON.stringify(info.sprite)})`,
+        `background-size:${columns * 100}% ${rows * 100}%`,
+        `background-position:${x}% ${y}%`,
+      ].join(';');
+    }
+
+    function readSelections() {
+      try {
+        const values = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        for (const value of values) {
+          state.selected.set(selectionKey(value.bvid, value.frameIndex), value);
+        }
+      } catch (error) {
+        console.warn('Ignoring invalid saved selections', error);
+      }
+    }
+
+    function saveSelections() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.selected.values()]));
+      updateCounter();
+    }
+
+    function updateCounter() {
+      elements.counter.textContent = `已选 ${state.selected.size} 张`;
+    }
+
+    function toggleSelection(video, frameIndex, event) {
+      if (event) event.stopPropagation();
+      const key = selectionKey(video.bvid, frameIndex);
+      if (state.selected.has(key)) {
+        state.selected.delete(key);
+      } else {
+        const info = frameInfo(video, frameIndex);
+        state.selected.set(key, {
+          bvid: video.bvid,
+          cid: video.cid,
+          title: video.title,
+          publishedAt: video.publishedAt,
+          sourceUrl: `${video.url}?t=${info.time}`,
+          ...info,
+        });
+      }
+      saveSelections();
+      document.querySelectorAll(`[data-key="${CSS.escape(key)}"]`).forEach((node) => {
+        node.classList.toggle('selected', state.selected.has(key));
+        node.setAttribute('aria-pressed', String(state.selected.has(key)));
+      });
+      if (state.onlySelected) renderVideos();
+    }
+
+    function createFrame(video, frameIndex, reasons = [], opensNearby = true) {
+      const info = frameInfo(video, frameIndex);
+      const key = selectionKey(video.bvid, frameIndex);
+      const node = document.createElement('article');
+      node.className = `frame${state.selected.has(key) ? ' selected' : ''}`;
+      node.dataset.key = key;
+      node.setAttribute('style', spriteStyle(video, info));
+      node.setAttribute('role', 'button');
+      node.setAttribute('tabindex', '0');
+      node.setAttribute('aria-label', `${formatTime(info.time)}，点击查看附近画面`);
+      node.setAttribute('aria-pressed', String(state.selected.has(key)));
+
+      if (reasons.includes('danmaku')) {
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = '弹幕高峰';
+        node.appendChild(badge);
+      }
+
+      const time = document.createElement('span');
+      time.className = 'frame-time';
+      time.textContent = formatTime(info.time);
+      node.appendChild(time);
+
+      const select = document.createElement('button');
+      select.className = 'select-button';
+      select.type = 'button';
+      select.textContent = '♥';
+      select.setAttribute('aria-label', '收藏或取消收藏这个画面');
+      select.addEventListener('click', (event) => toggleSelection(video, frameIndex, event));
+      node.appendChild(select);
+
+      const activate = () => opensNearby
+        ? openNearby(video, frameIndex)
+        : toggleSelection(video, frameIndex);
+      node.addEventListener('click', activate);
+      node.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activate();
+        }
+      });
+      return node;
+    }
+
+    function nearbyIndices(video, centerIndex, radius = 24) {
+      const start = Math.max(0, centerIndex - radius);
+      const end = Math.min(video.frameTimes.length - 1, centerIndex + radius);
+      const result = [];
+      for (let index = start; index <= end; index += 1) result.push(index);
+      return result;
+    }
+
+    function openNearby(video, centerIndex) {
+      const center = frameInfo(video, centerIndex);
+      elements.dialogTitle.textContent = video.title;
+      elements.dialogMeta.textContent = `${formatTime(center.time)} 前后约 3 分钟 · 点心形收藏`;
+      elements.nearbyGrid.replaceChildren(
+        ...nearbyIndices(video, centerIndex).map((index) => createFrame(video, index, [], false))
+      );
+      elements.dialog.showModal();
+      requestAnimationFrame(() => {
+        elements.nearbyGrid.children[Math.min(24, centerIndex)]?.scrollIntoView({ block: 'center' });
+      });
+    }
+
+    function videoMatches(video) {
+      const query = state.query.trim().toLowerCase();
+      if (query && !`${video.title} ${video.publishedAt}`.toLowerCase().includes(query)) return false;
+      if (!state.onlySelected) return true;
+      return [...state.selected.values()].some((item) => item.bvid === video.bvid);
+    }
+
+    function renderVideo(video) {
+      const section = document.createElement('section');
+      section.className = 'video';
+      const date = new Date(video.publishedAt).toLocaleString('zh-CN', {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit',
+      });
+      section.innerHTML = `
+        <header class="video-head">
+          <div>
+            <h2></h2>
+            <div class="meta">${date} · ${formatTime(video.duration)} · ${video.frameTimes.length} 张预览 · ${video.danmakuCount} 条弹幕</div>
+          </div>
+          <a class="external" href="${video.url}" target="_blank" rel="noopener">打开回放 ↗</a>
+        </header>
+      `;
+      section.querySelector('h2').textContent = video.title;
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+
+      let candidates = video.candidates;
+      if (state.onlySelected) {
+        const selectedFrames = new Set(
+          [...state.selected.values()]
+            .filter((item) => item.bvid === video.bvid)
+            .map((item) => item.frameIndex)
+        );
+        candidates = [...selectedFrames]
+          .sort((a, b) => a - b)
+          .map((frameIndex) => ({ frameIndex, reasons: [] }));
+      }
+      grid.replaceChildren(
+        ...candidates.map((candidate) =>
+          createFrame(video, candidate.frameIndex, candidate.reasons, true)
+        )
+      );
+      section.appendChild(grid);
+      return section;
+    }
+
+    function renderVideos() {
+      if (!state.data) return;
+      const videos = state.data.videos.filter(videoMatches);
+      elements.videos.replaceChildren(...videos.map(renderVideo));
+      if (videos.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'empty';
+        empty.textContent = state.onlySelected ? '还没有符合条件的收藏画面。' : '没有符合筛选条件的回放。';
+        elements.videos.appendChild(empty);
+      }
+    }
+
+    function exportSelections() {
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        target: { columns: 60, rows: 160, tileAspectRatio: '16:9' },
+        selections: [...state.selected.values()].sort((a, b) =>
+          a.publishedAt.localeCompare(b.publishedAt) || a.time - b.time
+        ),
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'selections.json';
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+
+    async function initialise() {
+      readSelections();
+      updateCounter();
+      try {
+        const response = await fetch('./data/review-data.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        state.data = await response.json();
+        const totalFrames = state.data.videos.reduce((sum, video) => sum + video.frameTimes.length, 0);
+        elements.status.textContent = `已读取 ${state.data.videos.length} 场回放、${totalFrames} 张低流量预览。点击代表画面查看前后片段。`;
+        renderVideos();
+      } catch (error) {
+        elements.status.innerHTML = '没有找到本地数据。请先运行采集脚本，再从项目根目录启动 <code>python3 -m http.server 8000</code>。';
+        console.error(error);
+      }
+    }
+
+    elements.search.addEventListener('input', () => {
+      state.query = elements.search.value;
+      renderVideos();
+    });
+    elements.showSelected.addEventListener('click', () => {
+      state.onlySelected = !state.onlySelected;
+      elements.showSelected.textContent = state.onlySelected ? '显示全部' : '只看已选';
+      renderVideos();
+    });
+    elements.export.addEventListener('click', exportSelections);
+    elements.closeDialog.addEventListener('click', () => elements.dialog.close());
+    elements.dialog.addEventListener('click', (event) => {
+      if (event.target === elements.dialog) elements.dialog.close();
+    });
+
+    initialise();
+  </script>
+</body>
+</html>

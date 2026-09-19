@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>【简历】华嘉炜</title>
+  <meta name="description" content="【简历】华嘉炜" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --text:#1a1a1a; --muted:#1a1a1a; --accent:#1a56db;
+      --border:#e5e7eb; --bg-light:#f8f9fa; --bg-highlight:#f0f4ff;
+      --maxw:860px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#ffffff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--text);}
+
+    /* ── 外层容器 ── */
+    .container{max-width:var(--maxw);margin:40px auto;padding:0 28px 48px;}
+
+    /* ── Header ── */
+    .header{display:flex;align-items:center;gap:24px;margin-bottom:28px;}
+    .header-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border);}
+    .header-info{flex:1;}
+    .header-name{font-size:28px;font-weight:800;margin:0 0 4px;}
+    .header-role{font-size:15px;color:var(--accent);font-weight:600;margin:0 0 8px;}
+    .header-contact{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 16px;}
+    .header-contact a{color:var(--muted);text-decoration:none;}
+    .header-contact a:hover{color:var(--accent);}
+
+    /* ── Section 通用 ── */
+    section{margin-bottom:28px;}
+    .section-title{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:0.8px;text-transform:uppercase;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+
+    /* ── 核心亮点 ── */
+    .highlights{background:var(--bg-highlight);border-radius:8px;padding:16px 20px;}
+    .highlights ul{margin:0;padding-left:18px;}
+    .highlights li{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:2px;}
+    .highlights li:last-child{margin-bottom:0;}
+
+    /* ── 工作经历 ── */
+    .item{padding:14px 0;border-bottom:1px solid var(--border);}
+    .item:last-child{border-bottom:0;}
+    .item-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;}
+    .role{font-weight:700;font-size:15px;}
+    .company{font-size:13px;color:var(--accent);font-weight:600;margin-top:2px;}
+    .duration{font-size:13px;color:var(--muted);white-space:nowrap;}
+    .desc{color:var(--muted);margin-top:10px;font-size:14px;line-height:1.7;letter-spacing:0.3px;}
+    .desc ul{margin:6px 0 0;padding-left:18px;}
+    .desc li{margin-bottom:4px;}
+    .desc li:last-child{margin-bottom:0;}
+    .desc strong{color:var(--text);}
+
+    /* ── 技术栈 ── */
+    .tech-groups{display:flex;flex-direction:column;gap:8px;}
+    .tech-row{display:flex;align-items:baseline;gap:10px;font-size:13px;}
+    .tech-label{font-weight:600;color:var(--text);white-space:nowrap;min-width:120px;}
+    .tech-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .tag{padding:3px 9px;border-radius:4px;background:var(--bg-light);border:1px solid var(--border);font-size:12px;color:var(--muted);}
+
+    /* ── 教育 ── */
+    .edu-item{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;}
+    .edu-school{font-weight:600;}
+    .edu-degree{color:var(--muted);}
+
+    /* ── 其他 ── */
+    .misc{font-size:14px;color:var(--muted);line-height:1.8;}
+
+    /* ── 响应式 ── */
+    @media screen and (max-width:640px){
+      .container{padding:0 16px 32px;margin:20px auto;}
+      .header{flex-direction:column;align-items:flex-start;gap:14px;}
+      .header-photo{width:72px;height:72px;}
+      .tech-row{flex-direction:column;gap:4px;}
+      .tech-label{min-width:unset;}
+      .item-header{flex-direction:column;}
+      .edu-item{flex-wrap:wrap;gap:4px 12px;}
+    }
+
+    /* ── 打印 ── */
+    @media print{
+      @page{size:auto;margin:0;}
+      html,body{width:auto;height:auto;}
+      body{background:white;color:black;}
+      .container{margin:0;padding:20px;}
+      .highlights{background:#f5f5f5;border:1px solid #ddd;}
+      .tag{background:#f5f5f5;border-color:#ddd;}
+      a::after{content:none;}
+      .item, .edu-item, .tech-row{page-break-inside:avoid;break-inside:avoid;}
+      .section-title{break-after:avoid;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ══ HEADER ══ -->
+    <header class="header">
+      <div class="header-info">
+        <h1 class="header-name">华嘉炜</h1>
+        <p class="header-role">大众点评 AI 应用工程负责人 · 美团</p>
+        <div class="header-contact">
+          <span>📧 <a href="mailto:hunter_hua@foxmail.com">hunter_hua@foxmail.com</a></span>
+          <span>📱 <a href="tel:+8618916137107">+86 189 1613 7107</a></span>
+          <span>📍 上海</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══ 教育 ══ -->
+    <section>
+      <div class="section-title">教育背景</div>
+      <div class="edu-item">
+        <span class="edu-school">浙江大学 · 软件工程</span>
+        <span class="edu-degree">硕士 · 2013 - 2015</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-school">南京理工大学 · 软件工程</span>
+        <span class="edu-degree">本科 · 2009 - 2013</span>
+      </div>
+    </section>
+
+    <!-- ══ 核心亮点 ══ -->
+    <section>
+      <div class="section-title">核心亮点</div>
+      <div class="desc">
+        <ul>
+          <li>参与点评 AI 搜索 Agent 的算法架构演进决策（RAG → OneModel ReAct → 规划-总结两阶段式 → 分层分流），主导工程落地</li>
+          <li>为点评 AI Agent 产品「问点仔」设计并落地 <strong>harness 工程体系</strong>，推进性能和交互优化，回答率从 <strong>92% 提升至 99%</strong>，沉浸阅读率和点击率显著提升，产品连续获得美团内部横评第一</li>
+          <li>在业界无成熟方案时解决推理问题，保障<strong>美团首个 C 端 AI 产品</strong> 点点助手（问点仔前身）2023 年 6 月上线</li>
+          <li>2022 年降本导向下，设计智能算力分配系统，排序层算力降低 <strong>20%</strong>，算法指标不降</li>
+          <li>ACM/ICPC Regional 银奖</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══ 工作经历 ══ -->
+    <section>
+      <div class="section-title">工作经历</div>
+      <div class="edu-item">
+        <span class="edu-school">美团</span>
+        <span class="edu-degree">2015 - 至今</span>
+      </div>
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <div class="role">AI 应用工程负责人</div>
+          </div>
+          <span class="duration">2024.12 - 至今</span>
+        </div>
+        <div class="desc">
+          <ul>
+            <li>组建并领导 AI 应用工程团队（峰值 13 人），覆盖前端、后端、平台和推理方向，与算法、产品团队共同对产品成功负责。辅导 2 名下属的晋升发展，其中 1 名以 L8 为目标</li>
+            <li><strong>算法架构演进和 harness</strong>：与算法团队深度协作，参与模型能力边界定义与迭代方向决策，设计「问点仔」AI harness 体系并推进落地；将回答率从 <strong>92% 提升至 99%</strong>，为产品连续获得美团内部横评第一做出贡献</li>
+            <li><strong>正文触达优化</strong>：主导前端 SSE 网络优化；设计分流、裁剪、压缩、缓存策略降低系统负载；协同 infra 团队尝试多种优化方案；优化 UI 交互，改善用户等待体验；带来沉浸阅读率和点击率的显著提升</li>
+            <li><strong>工程效能</strong>：主导建设研发调试、数据观测、case 运营、prompt 配置管理等效能工具，以及全链路监控大盘和支持端到端、分环节、分工具的干预降级管理系统</li>
+            <li>了解「问点仔」评估方案</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <div class="role">星级评价团队架构师、算法工程负责人</div>
+          </div>
+          <span class="duration">2023.11 - 2024.12</span>
+        </div>
+        <div class="desc">
+          <ul>
+            <li>带领各方向业务工程团队，0→1 构建星级、评价、榜单、公信力的算法工程链路，<strong>一个月</strong>完成从纯业务工程系统到算法驱动系统的升级，覆盖数据、召排、预估和 A/B 实验。评价消费渗透率、星级准确率、榜单模块在大搜中的点击率均显著提升</li>
+            <li>构建灰产情报信息挖掘能力，从多个微信群收集情报，成功挖掘信息并标记刷单刷评灰产团伙模式，锁定涉及作弊商户并大幅提高灰产作案成本</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <div class="role">搜索算法工程负责人</div>
+          </div>
+          <span class="duration">2022.03 - 2023.11</span>
+        </div>
+        <div class="desc">
+          <ul>
+            <li>带领 4 人团队帮助搜索算法团队提升迭代效率、在有限资源下最大化效果、保障模型特征链路稳定性</li>
+            <li>2023 年与算法团队共同完成 LLM 产品链路设计，在业界没有通用公开方案的背景下，基于 FasterTransformer 开发定制推理方案，使 LLM 在线推理性能和成本满足上线要求，于 6 月上线<strong>美团首个 C 端 AI 产品</strong>点点助手（问点仔前身）</li>
+            <li>2022 年降本导向下构建智能算力分配系统，排序层算力降低 <strong>20%</strong>，算法指标不降</li>
+            <li>从点评业务出发，参与美团搜推算法平台 Poker 共建</li>
+            <li>帮助 1 名前端工程师完成向算法工程师的角色转换</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <div class="role">搜索 Android 端负责人、前端架构师、全栈工程师</div>
+          </div>
+          <span class="duration">2015.07 - 2022.03</span>
+        </div>
+        <div class="desc">
+          <ul>
+            <li>校招入职即带领 4 人团队，负责搜索产品 Android 端迭代，落地端上预估能力，推进 Poker 成为端无感一站式算法平台，点评大搜、内容搜索均拿到指标收益</li>
+            <li>同时参与搜索系统全链路和工程体系构建，涵盖爬虫（内部）/预估/展示等核心环节和检索平台/索引平台/算法平台等核心工程系统</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 技术栈 ══ -->
+    <section>
+      <div class="section-title">技术栈</div>
+      <div class="tech-groups">
+        <div class="tech-row">
+          <span class="tech-label">AI · harness 工程</span>
+          <div class="tech-tags">
+            <span class="tag">Harness</span>
+            <span class="tag">Context Engineering</span>
+            <span class="tag">Trajectory</span>
+            <span class="tag">Memory</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-label">AI · 大模型应用工程</span>
+          <div class="tech-tags">
+            <span class="tag">ReAct</span>
+            <span class="tag">RAG</span>
+            <span class="tag">SSE 网络优化</span>
+            <span class="tag">分流分层优化</span>
+            <span class="tag">推理优化（应用）</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-label">搜索</span>
+          <div class="tech-tags">
+            <span class="tag">召排链路</span>
+            <span class="tag">工程系统</span>
+            <span class="tag">算力调度</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-label">后端 / 前端 / 移动</span>
+          <div class="tech-tags">
+            <span class="tag">Java（精通）</span>
+            <span class="tag">Spring（熟悉）</span>
+            <span class="tag">中间件（熟悉）</span>
+            <span class="tag">C++（会写）</span>
+            <span class="tag">Python（会写）</span>
+            <span class="tag">Android（精通）</span>
+            <span class="tag">Web（熟悉）</span>
+            <span class="tag">跨端（熟悉）</span>
+            <span class="tag">Vue（会写）</span>
+            <span class="tag">iOS（会写）</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 其他 ══ -->
+    <section>
+      <div class="section-title">其他信息</div>
+      <div class="desc">
+        <ul>
+          <li>Agent 产品深度用户：以 Codex 为主力开发工具，对 Agent Loop、Auto Harness、Hooks、Skills、Context 管理等有实操体感，用过 Claude Code、Cursor、Deepseek-harness 等 Agent 产品</li>
+          <li>3 项发明专利 &nbsp;·&nbsp; ACM/ICPC Regional 银奖 &nbsp;·&nbsp; 英语读写熟练、听说基础</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
